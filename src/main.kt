@@ -21,17 +21,45 @@ fun main(args:Array<String>){
         vet.giveShot(animal)
 
     }
+
+    val roamables:Array<Roamable> = arrayOf(
+            Hippo(),
+            Lion(),
+            Cheetah(),
+            Lynx(),
+            Fox(),
+            Car()
+    )
+    for (roamable in roamables){
+        println("*******************")
+            roamable.roam()
+            if(roamable is Animal){
+                roamable.eat()
+            }
+    }
 }
 
-/*open class Car(val make:String, val model:String){
-
+interface Roamable{
+    var velocity: Int
+    get() = 20
+    set(value) {
+        print(value)
+        println("km/s Unable to update velocity")
+    }
+    fun roam()
 }
 
+open class Car() :Roamable{
+    override fun roam() {
+        println("The Vehicle is roaming")
+    }
+}
+/*
 class ConvertibleCar(make_param:String,model_param:String):Car(make_param,model_param){
 
 }*/
 
-abstract class Animal{
+abstract class Animal:Roamable{
     abstract val image: String
     abstract val food: String
     abstract val habitat: String
@@ -41,7 +69,7 @@ abstract class Animal{
 
     abstract fun eat()
 
-    open fun roam(){
+    override fun roam(){
         println("The animal is roaming")
     }
 
